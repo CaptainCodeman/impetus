@@ -83,6 +83,21 @@
 		})();
 
 		/**
+   * In edge cases where you may need to
+   * reinstanciate Impetus on the same sourceEl
+   * this will remove the previous event listeners
+   */
+		this.destroy = function () {
+			sourceEl.removeEventListener('touchstart', onDown);
+			sourceEl.removeEventListener('mousedown', onDown);
+			// however it won't "destroy" a reference
+			// to instance if you'd like to do that
+			// it returns null as a convinience.
+			// ex: `instance = instance.destroy();`
+			return null;
+		};
+
+		/**
    * Disable movement processing
    * @public
    */
@@ -122,6 +137,26 @@
 		this.setMultiplier = function (val) {
 			multiplier = val;
 			stopThreshold = stopThresholdDefault * multiplier;
+		};
+
+		/**
+   * Update boundX value
+   * @public
+   * @param {Number[]} boundX
+   */
+		this.setBoundX = function (boundX) {
+			boundXmin = boundX[0];
+			boundXmax = boundX[1];
+		};
+
+		/**
+   * Update boundY value
+   * @public
+   * @param {Number[]} boundY
+   */
+		this.setBoundY = function (boundY) {
+			boundYmin = boundY[0];
+			boundYmax = boundY[1];
 		};
 
 		/**
